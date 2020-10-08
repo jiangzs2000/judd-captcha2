@@ -1,0 +1,59 @@
+server:
+  port: 7019
+spring:
+  profiles:
+    active: dev
+  application:
+    name: com.shuyuan.judd.captcha
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    database: 0
+    port: 6379
+    host: 192.168.1.12
+    password:
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:1111/eureka/
+    healthcheck:
+      enabled: false
+    #Indicates how often(in seconds) to fetch the registry information from the eureka server.
+    registry-fetch-interval-seconds: 60
+    initial-instance-info-replication-interval-seconds: 5
+    eureka-service-url-poll-interval-seconds: 50
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    #此配置建议只试用开发和测试环境
+    #心跳间隔时间,默认是30秒
+    lease-renewal-interval-in-seconds: 6
+    #最后一次心跳时间后leaseExpirationDurationInSeconds秒就认为是下线了，默认是90秒
+    lease-expiration-duration-in-seconds: 60
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    root: info
+    com:
+      shuyuan:
+        judd:
+          captcha: debug
+    spring:
+      shuyuan:
+        judd:
+          base:
+            utils: debug
+
+com:
+  shuyuan:
+    judd:
+      fundation:
+        ribbon:
+          NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule
+          ServerListRefreshInterval: 5000
