@@ -10,7 +10,7 @@
             <evaluator class="ch.qos.logback.classic.boolex.GEventEvaluator">
                 <expression>
                     <![CDATA[
-                    e.level.toInt()>=DEBUG.toInt() && e.level.toInt()<WARN.toInt()
+                    e.level.toInt()>=DEBUG.toInt() && e.level.toInt()<=ERROR.toInt()
                     ]]>
                 </expression>
             </evaluator>
